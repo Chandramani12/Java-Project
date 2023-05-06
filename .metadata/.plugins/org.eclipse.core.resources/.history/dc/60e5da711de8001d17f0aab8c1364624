@@ -1,0 +1,143 @@
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+public class LoginPage extends MainPage{public static void main(String[] args) {
+    JLabel label = new JLabel();
+    JPanel panel1 = new JPanel(); // For Panel to title
+    JTextField textField = new JTextField(); // UserName
+    JPasswordField passwordField = new JPasswordField(); // Password
+    JLabel label1 = new JLabel(); // Label as represent UserName
+    label1.setText("UserName");
+    JLabel label2 = new JLabel();// Label as represent Password
+    label2.setText("Password");
+    JFrame frame = new JFrame("Login Page");
+    JButton button1, button2;
+    label.setFont(new Font("Segoe UI", 50, 40));
+    label.setText("Library Login");
+    
+    GroupLayout groupLayout = new GroupLayout(panel1);
+   
+   
+   // panel1.setBorder(BorderFactory.createTitledBorder("Library Login"));
+    panel1.setBorder(BorderFactory.createTitledBorder("Login")); // to set Border Layout with Login
+    panel1.setLayout(groupLayout);
+    button1 = new JButton("Login");
+    button2 = new JButton("Cancel");
+
+    
+
+    GroupLayout.SequentialGroup hGroup = groupLayout.createSequentialGroup();
+    hGroup.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(button1)
+            .addGap(48, 48, 48)
+            .addComponent(button2)
+            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
+
+    groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(label, GroupLayout.Alignment.CENTER, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+                    Short.MAX_VALUE)
+            .addGroup(groupLayout.createSequentialGroup()
+                    .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(label1)
+                            .addComponent(label2))
+                    .addGap(51, 51, 51)
+                    .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                            .addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                            .addComponent(textField, GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)))
+            .addGroup(hGroup));
+
+    groupLayout.setVerticalGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(groupLayout.createSequentialGroup()
+                    .addComponent(label, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                    .addGap(48, 48, 48)
+                    .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(label1)
+                            .addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                    GroupLayout.PREFERRED_SIZE))
+                    .addGap(43, 43, 43)
+                    .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(label2)
+                            .addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                    GroupLayout.PREFERRED_SIZE))
+                    .addGap(39, 39, 39)
+                    .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(button1).addComponent(button2))
+                    .addContainerGap(43, Short.MAX_VALUE)));
+
+    Container c = frame.getContentPane();
+    GroupLayout layout = new GroupLayout(c);
+    c.setLayout(layout);
+
+    layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(panel1,
+            GroupLayout.Alignment.CENTER, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+    layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(panel1,
+            GroupLayout.Alignment.CENTER, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+
+    
+   //Button activity
+    button1.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+			String textusername=textField.getText(); // This will set the variable buttonText to "Click me"
+			@SuppressWarnings("deprecation")
+			String  textPassword=passwordField.getText();
+			
+			if(textusername.isEmpty() && textPassword.isEmpty()) {
+			    // Login with empty username and password not allowed
+			    JOptionPane.showMessageDialog(null, "Please enter your username and password.");
+			} else {
+			    // Perform login with the entered username and password
+			    DataBase db = new DataBase();
+			    boolean success = db.loginPage(textusername, textPassword);
+			    
+			    if (success) {
+			        JOptionPane.showMessageDialog(null, "Login successful.");
+			        frame.dispose();
+			        MainPage m=new MainPage();
+			        
+			        m.MainPag();
+			        
+			    } else {
+			        JOptionPane.showMessageDialog(null, "Incorrect username or password.");
+			        textField.setText("");
+			        passwordField.setText("");
+			    }
+			}
+
+		}
+	});
+ // Add action listener to the cancel button
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Close the login page
+                frame.dispose();
+            }
+        });
+        
+    
+    
+    
+    
+    
+    
+    frame.setSize(400, 400);
+    frame.setVisible(true);
+}
+}
+
+

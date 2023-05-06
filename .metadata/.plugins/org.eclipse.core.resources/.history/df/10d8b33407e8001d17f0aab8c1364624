@@ -1,0 +1,53 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class MainPage {
+    public static void main(String[] args) {
+        // Create the buttons
+        JButton categoryButton = new JButton("Category");
+        JButton authorButton = new JButton("Author");
+        JButton booksButton = new JButton("Books");
+        JButton issueButton = new JButton("Issue Books");
+        JButton returnButton = new JButton("Return Book");
+
+        // Set the font and size of the buttons
+        Font buttonFont = new Font("Arial", Font.PLAIN, 20);
+        categoryButton.setFont(buttonFont);
+        authorButton.setFont(buttonFont);
+        booksButton.setFont(buttonFont);
+        issueButton.setFont(buttonFont);
+        returnButton.setFont(buttonFont);
+
+        // Set the size of the buttons
+        Dimension buttonSize = new Dimension(200, 60);
+        categoryButton.setPreferredSize(buttonSize);
+        authorButton.setPreferredSize(buttonSize);
+        booksButton.setPreferredSize(buttonSize);
+        issueButton.setPreferredSize(buttonSize);
+        returnButton.setPreferredSize(buttonSize);
+
+        // Create the panel with a vertical BoxLayout
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50)); // Add some padding
+
+        // Add the buttons to the panel with a 10-pixel vertical gap between them
+        panel.add(categoryButton);
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+        panel.add(authorButton);
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+        panel.add(booksButton);
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+        panel.add(issueButton);
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+        panel.add(returnButton);
+
+        // Create the frame and add the panel to it
+        JFrame frame = new JFrame("Main Page");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(panel);
+        frame.pack();
+        frame.setLocationRelativeTo(null); // Center the frame on the screen
+        frame.setVisible(true);
+    }
+}

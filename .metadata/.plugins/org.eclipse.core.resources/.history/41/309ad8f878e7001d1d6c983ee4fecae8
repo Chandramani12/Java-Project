@@ -1,0 +1,28 @@
+import java.sql.*;
+
+
+public class DataBase {
+	
+	String connection(String username ,String Pass){
+		
+		
+		Connection con;
+		try {
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			con= DriverManager.getConnection("jdbc:mysql://localhost:3306/mydatabase", "sa", "sql321");
+			
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		
+		return null;
+		
+	}
+	
+
+}

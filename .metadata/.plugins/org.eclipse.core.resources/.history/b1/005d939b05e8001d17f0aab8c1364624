@@ -1,0 +1,43 @@
+import java.awt.Color;
+import java.awt.FlowLayout;
+
+import javax.swing.*;
+
+public class MainPage {
+    static JButton button1, button2, button3, button4, button5;
+
+    
+    public MainPage () { 
+    	
+    	  JFrame frame = new JFrame("Main Page");
+          JPanel panel = new JPanel();
+          
+          // Set the background color of the panel
+          panel.setBackground(Color.LIGHT_GRAY);
+
+          
+          button1 = new JButton("Category");
+    
+          button2 = new JButton("Author");
+          button3 = new JButton("Books");
+          button4 = new JButton("Issue Books");
+          button5 = new JButton("Return Book");
+          
+
+          panel.add(button1);
+          panel.add(button2);
+          panel.add(button3);
+          panel.add(button4);
+          panel.add(button5);
+
+          frame.add(panel);
+          
+          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+          frame.setSize(500, 500);
+          frame.setVisible(true);
+    }
+    
+    public static void main(String[] args) {
+      
+    }
+}

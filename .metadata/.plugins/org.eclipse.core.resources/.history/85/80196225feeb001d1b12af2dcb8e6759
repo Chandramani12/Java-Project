@@ -1,0 +1,190 @@
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.ScrollPane;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
+public class CategoryPage {
+    Connection con;
+    PreparedStatement pst;
+    ResultSet rs;
+
+    JFrame f;
+    JPanel panel;
+    JButton addButton, editButton, deleteButton, cancelButton;
+    JLabel categoryLabel, statusLabel;
+    JTextField categoryNameTextField;
+    JScrollPane scrollPane;
+    JTabbedPane tabbedPane;
+    String array[] = {"Active", "Inactive"};
+    JComboBox<String> statusComboBox;
+    JTable categoryTable;
+
+    public CategoryPage() {
+        initUIComponents();
+        createConnection();
+        tableUpdated();
+    }
+    private void tableUpdated() {
+        try {
+            if (con == null) {
+                createConnection();
+            }
+            pst = con.prepareStatement("SELECT category_name, status FROM ");
+            rs = pst.executeQuery();
+
+            DefaultTableModel model = (DefaultTableModel) categoryTable.getModel();
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                String category = rs.getString("category_name");
+                String status = rs.getString("status");
+                Object[] row = {category, status};
+                model.addRow(row);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
+    private void createConnection() {
+        try {
+//           DataBase db=new DataBase();
+//           db.connection();
+        	String url="jdbc:sqlserver://localhost:1433;databaseName=library;encrypt=true;trustServerCertificate=true;sslProtocol=TLSv1.2;trustStore=C:/Program Files/Java/jdk1.8.0_251/jre/lib/security/cacerts;trustStorePassword=changeit;trustStoreType=jks";
+
+            //String url = "jdbc:sqlserver://localhost:1433;databaseName=library";
+            String user = "sa";
+            String password = "sql321";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            con = DriverManager.getConnection(url, user, password);
+            System.out.println("Connection created successfully");
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void initUIComponents() {
+        f = new JFrame();
+        f.setTitle("Category Page");
+
+        panel = new JPanel();
+        panel.setLayout(null);
+
+        addButton = new JButton("Add");
+        addButton.setBounds(25, 300, 80, 30);
+        panel.add(addButton);
+
+        editButton = new JButton("Edit");
+        editButton.setBounds(115, 300, 80, 30);
+        panel.add(editButton);
+
+        deleteButton = new JButton("Delete");
+        deleteButton.setBounds(205, 300, 80, 30);
+        panel.add(deleteButton);
+
+        cancelButton = new JButton("Cancel");
+        cancelButton.setBounds(295, 300, 80, 30);
+        panel.add(cancelButton);
+
+        categoryLabel = new JLabel("Category");
+        categoryLabel.setBounds(25, 30, 100, 30);
+        panel.add(categoryLabel);
+
+        statusLabel = new JLabel("Status");
+        statusLabel.setBounds(25, 80, 100, 30);
+        panel.add(statusLabel);
+
+        categoryNameTextField = new JTextField();
+        categoryNameTextField.setBounds(125, 30, 250, 30);
+        panel.add(categoryNameTextField);
+
+        statusComboBox = new JComboBox<>(array);
+        statusComboBox.setBounds(125, 80, 250, 30);
+        panel.add(statusComboBox);
+
+        categoryTable = new JTable();
+        categoryTable.setModel(new DefaultTableModel(
+                new Object[][]{},
+                new String[]{"Category", "Status"}
+        ));
+        scrollPane = new JScrollPane(categoryTable);
+        scrollPane.setBounds(25, 130, 350, 150);
+        panel.add(scrollPane);
+
+        f.add(panel);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setSize(400, 400);
+        f.setVisible(true);
+        f.setLocationRelativeTo(null);
+
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //addCategory();
+            	jButton1ActionPerformed();
+            }
+        });
+        
+
+
+        editButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               // editCategory();
+            }
+        });
+
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //deleteCategory();
+            }
+        });
+
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cancel();
+            }
+        });
+    }
+
+    private void cancel() {
+        categoryNameTextField.setText("");
+        statusComboBox.setSelectedIndex(0);
+        categoryTable.clearSelection();
+    }
+    public static void main(String[] args) {
+        CategoryPage categoryPage = new CategoryPage();
+    }
+    
+
+}
+

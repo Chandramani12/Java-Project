@@ -1,0 +1,56 @@
+import java.io.BufferedReader;
+	import java.io.FileReader;
+	import java.io.IOException;
+	import java.io.BufferedReader;
+	import java.io.FileReader;
+	import java.io.IOException;
+	import javax.swing.JFrame;
+	import javax.swing.JScrollPane;
+	import javax.swing.JTable;
+	import javax.swing.table.DefaultTableModel;
+
+public class CSVFile {
+	
+	
+	public static void main(String[] args) {
+        JFrame frame = new JFrame("CSV Table");
+        JTable table = new JTable();
+        DefaultTableModel model = new DefaultTableModel();
+
+        String csvFile = "Read1.csv";
+        BufferedReader br = null;
+        String line = "";
+
+        try {
+            br = new BufferedReader(new FileReader(csvFile));
+            line = br.readLine();
+            String[] headers = line.split(",");
+            for (String header : headers) {
+                model.addColumn(header.replaceAll("\"", ""));
+            }
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                for (int i = 0; i < data.length; i++) {
+                    data[i] = data[i].replaceAll("\"", "");
+                }
+                model.addRow(data);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        table.setModel(model);
+        JScrollPane scrollPane = new JScrollPane(table);
+        frame.add(scrollPane);
+        frame.setSize(600, 400);
+        frame.setVisible(true);
+    }
+}

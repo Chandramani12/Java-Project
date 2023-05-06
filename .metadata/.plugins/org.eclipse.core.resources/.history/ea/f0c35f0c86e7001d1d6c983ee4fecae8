@@ -1,0 +1,10 @@
+import javax.swing.JButton;
+
+public class MainPage {
+	JButton button1,button2,button3,button4,button5;
+
+	void Main()
+	{
+		
+	}
+}

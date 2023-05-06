@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;Database&apos; to &apos;LoginPage&apos;&#x0D;&#x0A;- Original project: &apos;Data&apos;&#x0D;&#x0A;- Original element: &apos;Database&apos;&#x0D;&#x0A;- Renamed element: &apos;LoginPage&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;Database&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;{Database.java[Database" matchStrategy="1" name="LoginPage" qualified="false" references="true" similarDeclarations="false" stamp="1682856153365" textual="false" version="1.0"/>
+</session>

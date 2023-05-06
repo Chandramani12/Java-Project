@@ -1,0 +1,48 @@
+import java.io.BufferedReader;
+	import java.io.FileReader;
+	import java.io.IOException;
+
+public class CSVFile {
+	
+	
+	    public static void main(String[] args) {
+	        String csvFile = "file.csv";
+	        BufferedReader br = null;
+	        String line = "";
+	        int rows = 10;
+	        int columns = 5;
+	        String[][] table = new String[rows][columns];
+
+	        try {
+	            br = new BufferedReader(new FileReader(Imm));
+	            int row = 0;
+	            while ((line = br.readLine()) != null && row < rows) {
+	                String[] values = line.split(",");
+	                for (int col = 0; col < values.length && col < columns; col++) {
+	                    table[row][col] = values[col];
+	                }
+	                row++;
+	            }
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } finally {
+	            if (br != null) {
+	                try {
+	                    br.close();
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+
+	        // print the table
+	        for (String[] row : table) {
+	            for (String value : row) {
+	                System.out.print(value + " ");
+	            }
+	            System.out.println();
+	        }
+	    }
+	}
+
+

@@ -1,0 +1,52 @@
+import java.awt.*;
+import javax.swing.*;
+
+public class MainPage {
+    static JButton button1, button2, button3, button4, button5;
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Main Page");
+        JPanel panel = new JPanel();
+        
+        // Set the layout of the panel to BoxLayout
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        
+        button1 = new JButton("Category");
+        button2 = new JButton("Author");
+        button3 = new JButton("Books");
+        button4 = new JButton("Issue Books");
+        button5 = new JButton("Return Book");
+
+        // Set the font size of the buttons
+        Font buttonFont = new Font(button1.getFont().getName(), Font.PLAIN, 18);
+        button1.setFont(buttonFont);
+        button2.setFont(buttonFont);
+        button3.setFont(buttonFont);
+        button4.setFont(buttonFont);
+        button5.setFont(buttonFont);
+        
+        // Set the preferred size of the buttons
+        Dimension buttonSize = new Dimension(200, 50);
+        button1.setPreferredSize(buttonSize);
+        button2.setPreferredSize(buttonSize);
+        button3.setPreferredSize(buttonSize);
+        button4.setPreferredSize(buttonSize);
+        button5.setPreferredSize(buttonSize);
+
+        // Add the buttons as separate components to the panel
+        panel.add(button1);
+        panel.add(Box.createVerticalStrut(10)); // Add a gap of 10 pixels
+        panel.add(button2);
+        panel.add(Box.createVerticalStrut(10)); // Add a gap of 10 pixels
+        panel.add(button3);
+        panel.add(Box.createVerticalStrut(10)); // Add a gap of 10 pixels
+        panel.add(button4);
+        panel.add(Box.createVerticalStrut(10)); // Add a gap of 10 pixels
+        panel.add(button5);
+
+        frame.add(panel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 500);
+        frame.setVisible(true);
+    }
+}
